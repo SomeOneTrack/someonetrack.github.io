@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SomeOne Track</title>
+<meta name="description" content="SomeOne Track — 製作人阿某打造的 AI 虛擬音樂廠牌。嵐、安瑀、諾雅三位歌手，華語抒情、搖滾、Trap、電音。">
+<meta property="og:title" content="SomeOne Track">
+<meta property="og:description" content="嵐、安瑀、諾雅｜AI 虛擬歌手原創華語音樂">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090c; --bg2:#111117; --card:#15151d; --line:#24242f;
+  --text:#ecebf2; --muted:#9a98a8;
+  --lan:#3d9dff; --anyu:#ff7db4; --noya:#c9a27a; --amou:#a3e635;
+  --accent:#e7e6ee;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.display{font-family:Anton,"Noto Sans TC",sans-serif;letter-spacing:.02em;text-transform:uppercase;line-height:.95}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;background:linear-gradient(#09090ce6,#09090c00);backdrop-filter:blur(6px)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:Anton,sans-serif;font-size:22px;letter-spacing:.06em}
+.logo span{color:var(--muted)}
+.navlinks{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.navlinks a:hover{color:var(--text)}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url(img/hero.jpg) 85% 30%/cover no-repeat;filter:saturate(.85)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,#09090c 0%,#09090cdd 38%,#09090c55 70%,#09090c22 100%),
+  linear-gradient(0deg,#09090c 0%,#09090c00 45%)}
+.hero .wrap{position:relative;width:100%;padding-bottom:12vh}
+.eyebrow{font-size:13px;letter-spacing:.3em;color:var(--muted);margin-bottom:18px}
+.hero h1{font-size:clamp(64px,13vw,168px)}
+.hero h1 .thin{-webkit-text-stroke:1.5px var(--text);color:transparent}
+.hero p.lead{max-width:520px;margin:22px 0 34px;color:#cfcdd8;font-size:17px}
+.socials{display:flex;flex-wrap:wrap;gap:12px}
+.sbtn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--line);border-radius:999px;background:#ffffff0a;font-size:14px;font-weight:500;transition:.2s}
+.sbtn svg{width:18px;height:18px;fill:currentColor}
+.sbtn:hover{background:#fff;color:#000;border-color:#fff}
+.sbtn.yt{background:#ff0033;border-color:#ff0033;color:#fff}
+.sbtn.yt:hover{background:#fff;color:#ff0033}
+.sbtn.off{opacity:.4;pointer-events:none}
+.scroll-hint{position:absolute;right:24px;bottom:28px;font-size:12px;letter-spacing:.3em;color:var(--muted);writing-mode:vertical-rl}
+
+/* sections */
+section{padding:120px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:56px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(44px,7vw,84px)}
+.sec-head .num{font-family:Anton,sans-serif;color:var(--muted);font-size:14px;letter-spacing:.2em;display:block;margin-bottom:10px}
+.sec-head p{max-width:420px;color:var(--muted)}
+
+/* about strip */
+.about{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 0;background:var(--bg2)}
+.about .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+.about h3{font-size:clamp(22px,2.6vw,30px);font-weight:900;line-height:1.5}
+.about p{color:var(--muted)}
+.stats{display:flex;gap:40px;margin-top:22px}
+.stats b{display:block;font-family:Anton,sans-serif;font-size:40px;font-weight:400;color:var(--text)}
+.stats span{font-size:13px;color:var(--muted)}
+
+/* artists */
+.artists{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.artist{--c:var(--lan);position:relative;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:transform .35s,border-color .35s}
+.artist:hover{transform:translateY(-6px);border-color:var(--c)}
+.artist .ph{position:relative;aspect-ratio:3/4;overflow:hidden}
+.artist .ph img{width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .6s}
+.artist:hover .ph img{transform:scale(1.04)}
+.artist .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--card) 0%,#15151d00 45%)}
+.artist .ph img.sig{position:absolute;z-index:2;right:10px;bottom:0;width:48%;height:auto;object-fit:contain;transform:none;mix-blend-mode:screen;opacity:.9;pointer-events:none}
+.artist .body{padding:6px 24px 28px}
+.artist .name{display:flex;align-items:baseline;gap:12px}
+.artist .name h3{font-size:34px;font-weight:900;letter-spacing:.04em}
+.artist .name em{font-style:normal;font-family:Anton,sans-serif;color:var(--c);letter-spacing:.12em;font-size:15px}
+.artist .role{font-size:13px;color:var(--c);margin:2px 0 14px;font-weight:500}
+.artist p{color:#c4c2cf;font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{font-size:12px;padding:4px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);color:color-mix(in srgb,var(--c) 80%,#fff)}
+.artist.lan{--c:var(--lan)} .artist.anyu{--c:var(--anyu)} .artist.noya{--c:var(--noya)}
+
+.producer{margin-top:22px;display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:center;padding:22px;border-radius:18px;background:var(--card);border:1px dashed var(--line)}
+.producer img{width:200px;height:200px;object-fit:cover;object-position:center 20%;border-radius:12px;filter:grayscale(.3)}
+.producer h3{font-size:26px;font-weight:900}
+.producer h3 small{font-family:Anton,sans-serif;color:var(--amou);font-size:14px;letter-spacing:.15em;margin-left:10px;font-weight:400}
+.producer p{color:var(--muted);margin-top:6px}
+
+/* genres */
+.genres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.genre{padding:28px 24px;border-radius:16px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
+.genre::before{content:"";position:absolute;inset:auto -40px -60px auto;width:160px;height:160px;border-radius:50%;background:var(--g);filter:blur(60px);opacity:.35}
+.genre .gi{font-family:Anton,sans-serif;font-size:13px;letter-spacing:.2em;color:var(--g)}
+.genre h4{font-size:22px;font-weight:900;margin:8px 0 10px}
+.genre p{color:var(--muted);font-size:14px}
+.genre .eg{margin-top:14px;font-size:13px;color:#d7d5e0}
+
+/* works */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:13px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer;transition:.2s}
+.filters button.on,.filters button:hover{color:#000;background:var(--text);border-color:var(--text)}
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.work{display:block;border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--line);transition:.25s}
+.work:hover{border-color:var(--c);transform:translateY(-4px)}
+.work .th{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.work .th img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.work:hover .th img{transform:scale(1.05)}
+.work .th .play{position:absolute;inset:0;display:grid;place-items:center;background:#0006;opacity:0;transition:.25s}
+.work:hover .th .play{opacity:1}
+.work .play svg{width:54px;height:54px;fill:#fff}
+.work .meta{padding:14px 16px 18px}
+.work .who{font-size:12px;color:var(--c);font-weight:700;letter-spacing:.08em}
+.work h5{font-size:17px;font-weight:700;margin:2px 0 4px}
+.work .hook{font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.work .date{font-size:12px;color:#6d6b7a;margin-top:8px}
+.more{text-align:center;margin-top:48px}
+
+/* follow */
+.follow{text-align:center;background:radial-gradient(ellipse at center,#1a1a24 0%,var(--bg) 70%)}
+.follow h2{font-size:clamp(48px,9vw,120px);margin-bottom:18px}
+.follow p{color:var(--muted);margin-bottom:36px}
+.follow .socials{justify-content:center}
+footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:#6d6b7a}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .artists{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+  .about .wrap{grid-template-columns:1fr}
+  .producer{grid-template-columns:1fr;text-align:center}
+  .producer img{margin:0 auto;width:160px;height:160px}
+  .navlinks{display:none}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  section{padding:80px 0}
+  .hero .wrap{padding-bottom:9vh}
+  .hero-bg{background-position:84% 20%}
+  .hero-bg::after{background:linear-gradient(0deg,#09090c 10%,#09090ccc 50%,#09090c55 100%)}
+  .scroll-hint{display:none}
+  .stats{gap:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">SOMEONE<span>TRACK</span></a>
+    <div class="navlinks">
+      <a href="#artists">歌手</a>
+      <a href="#sound">曲風</a>
+      <a href="#works">作品</a>
+      <a href="#follow">追蹤</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="嵐站在夜晚濕漉漉的街頭"></div>
+  <div class="wrap">
+    <div class="eyebrow">AI VIRTUAL MUSIC LABEL · TAIWAN</div>
+    <h1 class="display">SomeOne<br><span class="thin">Track</span></h1>
+    <p class="lead">三個剛出道的聲音，一個很吵的製作人。<br>我們寫那些說不出口的心事——分手、等待、放下，和放不下。</p>
+    <div class="socials" data-socials></div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</header>
+
+<div class="about">
+  <div class="wrap reveal">
+    <h3>SomeOne Track 是製作人阿某打造的 AI 虛擬音樂廠牌，每一首歌都是原創詞曲。</h3>
+    <div>
+      <p>旗下三位虛擬歌手各有各的嗓音與脾氣：嵐的搖滾直球、安瑀的甜美抒情、諾雅的冷靜低語。不是大明星，是一路從零開始唱的小歌手。</p>
+      <div class="stats">
+        <div><b>3</b><span>位歌手</span></div>
+        <div><b>5+</b><span>種曲風</span></div>
+        <div><b>2/週</b><span>新歌更新</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="artists">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="num">01 / ARTISTS</span><h2 class="display">The Voices</h2></div>
+      <p>同一個廠牌，三種完全不同的心碎方式。</p>
+    </div>
+
+    <div class="artists">
+      <article class="artist lan reveal">
+        <div class="ph"><img src="img/lan.jpg" alt="嵐，黑髮漸層藍的長直髮" loading="lazy"><img class="sig" src="img/sig_lan.png" alt=""></div>
+        <div class="body">
+          <div class="name"><h3>嵐</h3><em>LAN</em></div>
+          <div class="role">搖滾 · Trap · 電音</div>
+          <p>頻道主力。搖滾抒情是本業：電吉他、爆發副歌，痛也唱得很有力氣；也能切進潮流 Trap、電音街舞，甚至用台語 Rap 講想念——「愛可以坍塌，但我不會倒下」。</p>
+          <div class="tags"><span class="tag">Pop Rock</span><span class="tag">Trap</span><span class="tag">電音</span><span class="tag">台語 Rap</span></div>
+        </div>
+      </article>
+
+      <article class="artist anyu reveal">
+        <div class="ph"><img src="img/anyu.jpg" alt="安瑀，粉紅色微捲長髮" loading="lazy"><img class="sig" src="img/sig_anyu.png" alt=""></div>
+        <div class="body">
+          <div class="name"><h3>安瑀</h3><em>AN-YU</em></div>
+          <div class="role">華語抒情 · 鋼琴 Ballad</div>
+          <p>鋼琴和弦樂鋪底的抒情慢歌，唱法不炫技、咬字真，把分手後的小細節唱得特別揪心——「我不恨你，只是心疼那個曾經的自己」。</p>
+          <div class="tags"><span class="tag">華語抒情</span><span class="tag">鋼琴 Ballad</span><span class="tag">甜美流行</span></div>
+        </div>
+      </article>
+
+      <article class="artist noya reveal">
+        <div class="ph"><img src="img/noya.jpg" alt="諾雅，咖啡色微捲長髮與空氣瀏海" loading="lazy"><img class="sig" src="img/sig_noya.png" alt=""></div>
+        <div class="body">
+          <div class="name"><h3>諾雅</h3><em>NOIR</em></div>
+          <div class="role">都會抒情 · 低嗓</div>
+          <p>偏低的成熟女聲，語速慢、情緒收著唱。都會抒情帶一點 R&amp;B 氛圍，專唱等待、延遲、不對等的愛——「差一步，就成了我們的結局」。</p>
+          <div class="tags"><span class="tag">都會抒情</span><span class="tag">低嗓</span><span class="tag">R&amp;B 氛圍</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="producer reveal">
+      <img src="img/amou.jpg" alt="製作人阿某，黑色短髮" loading="lazy">
+      <div>
+        <h3>阿某<small>PRODUCER</small></h3>
+        <p>製作人，也是三位歌手口中的「小老哥」。北爛愛玩、嘴砲第一名，常發起荒謬企劃；嘴上嫌東嫌西，飲料和器材倒是都默默扛了。偶爾也會下場合唱（例如嵐的〈束手無力〉）。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sound" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="num">02 / SOUND</span><h2 class="display">The Sound</h2></div>
+      <p>以華語抒情為核心，往搖滾、Trap、電音和台語延伸。人聲厚、情緒滿，不寫老梗。</p>
+    </div>
+    <div class="genres">
+      <div class="genre reveal" style="--g:var(--anyu)"><div class="gi">BALLAD</div><h4>華語抒情</h4><p>頻道的根。鋼琴與弦樂鋪底，把分手後的細節唱到讓人停下來。</p><div class="eg">〈搬空〉〈依賴感〉〈時間擱淺〉</div></div>
+      <div class="genre reveal" style="--g:var(--lan)"><div class="gi">POP ROCK</div><h4>搖滾抒情</h4><p>電吉他和爆發副歌，痛也要痛得很有力氣。</p><div class="eg">〈愛注定坍塌〉〈你的軌跡〉〈謊言病毒〉</div></div>
+      <div class="genre reveal" style="--g:#b26bff"><div class="gi">TRAP</div><h4>潮流 Trap</h4><p>低頻 808 配上冷調旋律，態度比歌詞還直接。</p><div class="eg">〈孟婆湯〉〈別來弄髒我的眼〉</div></div>
+      <div class="genre reveal" style="--g:#22d3ee"><div class="gi">EDM</div><h4>電音舞曲</h4><p>男女對唱、街舞編排，傷心也可以跳。</p><div class="eg">〈束手無力〉feat. 阿某</div></div>
+      <div class="genre reveal" style="--g:var(--noya)"><div class="gi">TAIGI RAP</div><h4>台語 Rap 情歌</h4><p>用母語講最直白的想念，嵐的另一面。</p><div class="eg">〈無你 我袂好〉</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="num">03 / LATEST</span><h2 class="display">Latest Drops</h2></div>
+      <div class="filters" role="tablist">
+        <button class="on" data-f="all">全部</button>
+        <button data-f="嵐">嵐</button>
+        <button data-f="安瑀">安瑀</button>
+        <button data-f="諾雅">諾雅</button>
+      </div>
+    </div>
+    <div class="works" id="works-grid"></div>
+    <div class="more"><a class="sbtn yt" data-yt href="#"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>到 YouTube 看全部作品</a></div>
+  </div>
+</section>
+
+<section id="follow" class="follow">
+  <div class="wrap reveal">
+    <h2 class="display">Stay Tuned</h2>
+    <p>新歌每週更新，幕後日常和三位歌手的互嗆在 IG、Threads、TikTok。</p>
+    <div class="socials" data-socials></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> SomeOne Track. 本頻道歌手為 AI 虛擬角色，詞曲為原創作品。</span>
+    <span>Produced by 阿某</span>
+  </div>
+</footer>
+
+<script>
+/* ====== 在這裡填社群連結（留空的會顯示成灰色「即將開放」） ====== */
+const LINKS = {
+  youtube:   "https://www.youtube.com/channel/UCcZtN75XhvpGMR3HhWju2Dg",
+  instagram: "https://www.instagram.com/someonetrack/",
+  threads:   "https://www.threads.com/@someonetrack",
+  tiktok:    "https://www.tiktok.com/@someone.track"
+};
+
+/* ====== 最新作品：新增歌曲就在最上面加一行 [影片ID, 歌手, 歌名, 一句話, 日期] ====== */
+const WORKS = [
+  ["oldVR18oTGI","嵐","時間的海","謝謝你曾停靠，也祝你往後安好","2026-10-22"],
+  ["EXgcJgFTwT8","嵐","束手無力 feat. 阿某","I Never Really Let You Go｜電音街舞 MV","2026-10-19"],
+  ["zD5HPCPi_AU","嵐","片刻的回憶","片刻的溫柔，最後成了刺骨的刀","2026-10-16"],
+  ["NEb2elpirxY","諾雅","你的信號","等待・延遲・斷線・不對等的愛","2026-10-14"],
+  ["8xuDOwMKccA","嵐","愛注定坍塌","愛可以坍塌，但我不會倒下","2026-10-12"],
+  ["q5riLoXP5YA","安瑀","搬空","有些離開，是把靈魂也一起帶走","2026-10-09"],
+  ["dtFQB1LqM8o","諾雅","時間擱淺","人不在，我的世界時間也停止了","2026-10-07"],
+  ["sbR2CvBtN7g","嵐","你的軌跡","你是捕捉不到的彗星，我是照亮不了的行星","2026-10-05"],
+  ["tK01N_0FC0s","諾雅","讓愛停在緩衝區","差一步，就成了我們的結局","2026-10-01"],
+  ["4FPNHMkPqOY","嵐","孟婆湯","潮流 Trap｜忘川酒吧裡的最後一杯","2026-09-28"],
+  ["GWyBF5xeS8s","嵐","無你 我袂好","Rapper 台語情歌","2026-09-24"],
+  ["zQV_UZc4ePM","安瑀","你走了 我懂了","我不恨你，只是心疼那個曾經的自己","2026-09-17"]
+];
+
+const ICONS = {
+  youtube:'<path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>',
+  instagram:'<path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/>',
+  threads:'<path d="M17.7 11.1l-.4-.2c-.2-3.4-2.1-5.4-5.2-5.4-1.9 0-3.4.8-4.4 2.2l1.7 1.2c.7-1.1 1.8-1.3 2.7-1.3 1 0 1.8.3 2.3.9.4.4.6 1 .7 1.8-.8-.1-1.7-.2-2.6-.1-2.6.2-4.3 1.7-4.2 3.8.1 1.1.6 2 1.5 2.6.8.5 1.8.8 2.9.7 1.4-.1 2.5-.6 3.3-1.6.6-.7 1-1.7 1.1-2.9.7.4 1.2 1 1.5 1.6.5 1.2.5 3.1-1 4.6-1.3 1.3-3 1.9-5.4 1.9-2.7 0-4.8-.9-6.1-2.6-1.3-1.6-1.9-3.9-2-6.8.1-2.9.7-5.2 2-6.8C5.4 3.1 7.5 2.2 10.2 2.2c2.7 0 4.8.9 6.2 2.6.7.8 1.2 1.9 1.6 3.1l2-.5c-.4-1.5-1.1-2.8-2-3.9C16.2 1.3 13.6.1 10.2.1 6.8.1 4.2 1.3 2.5 3.4.9 5.4.1 8.2 0 11.9v.1c.1 3.6.9 6.5 2.5 8.4 1.7 2.1 4.3 3.3 7.7 3.3 3 0 5.1-.8 6.9-2.5 2.3-2.3 2.2-5.1 1.4-6.9-.5-1.3-1.5-2.4-2.8-3.2zm-4.9 4.6c-1.1.1-2.3-.4-2.4-1.5 0-.8.6-1.7 2.4-1.8h.6c.7 0 1.3.1 1.9.2-.2 2.6-1.4 3-2.5 3.1z"/>',
+  tiktok:'<path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.3V2h-3.4v13.6a2.9 2.9 0 0 1-5.2 1.7 2.9 2.9 0 0 1 3.2-4.5V9.4a6.3 6.3 0 0 0-5.4 10.7 6.3 6.3 0 0 0 10.8-4.4V8.8a8.2 8.2 0 0 0 4.8 1.5V6.9c-.3 0-.7-.1-1-.2z"/>'
+};
+const LABEL = {youtube:"YouTube",instagram:"Instagram",threads:"Threads",tiktok:"TikTok"};
+const svg = k => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>`;
+
+document.querySelectorAll('[data-socials]').forEach(box=>{
+  box.innerHTML = Object.keys(LABEL).map(k=>{
+    const url = LINKS[k];
+    return url
+      ? `<a class="sbtn ${k==='youtube'?'yt':''}" href="${url}" target="_blank" rel="noopener">${svg(k)}${LABEL[k]}</a>`
+      : `<span class="sbtn off">${svg(k)}${LABEL[k]} · 即將開放</span>`;
+  }).join('');
+});
+document.querySelectorAll('[data-yt]').forEach(a=>{a.href=LINKS.youtube+"/videos";a.target="_blank";a.rel="noopener"});
+
+const COLOR = {"嵐":"var(--lan)","安瑀":"var(--anyu)","諾雅":"var(--noya)"};
+const grid = document.getElementById('works-grid');
+function render(f){
+  grid.innerHTML = WORKS.filter(w=>f==='all'||w[1]===f).map(([id,who,title,hook,date])=>`
+    <a class="work" style="--c:${COLOR[who]}" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
+      <div class="th"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${who}〈${title}〉" loading="lazy"><div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      <div class="meta"><div class="who">${who}</div><h5>${title}</h5><div class="hook">${hook}</div><div class="date">${date}</div></div>
+    </a>`).join('');
+}
+render('all');
+document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.classList.toggle('on',x===b));
+  render(b.dataset.f);
+});
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
