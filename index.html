@@ -66,7 +66,8 @@ section{padding:120px 0}
 .about .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
 .about h3{font-size:clamp(22px,2.6vw,30px);font-weight:900;line-height:1.5}
 .about p{color:var(--muted)}
-.stats{display:flex;gap:40px;margin-top:22px}
+.stats{display:flex;flex-wrap:wrap;gap:22px 40px;margin-top:22px}
+.stats .views b{color:var(--lan)}
 .stats b{display:block;font-family:Anton,sans-serif;font-size:40px;font-weight:400;color:var(--text)}
 .stats span{font-size:13px;color:var(--muted)}
 
@@ -188,6 +189,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div><b>3</b><span>位歌手</span></div>
         <div><b>5+</b><span>種曲風</span></div>
         <div><b>2/週</b><span>新歌更新</span></div>
+        <div class="views" hidden><b data-views>—</b><span>網站累計瀏覽</span></div>
       </div>
     </div>
   </div>
@@ -349,6 +351,27 @@ document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{
 });
 
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ====== 總瀏覽次數（Abacus 免費計數服務）======
+   正式網址才 +1；同一個分頁工作階段只算一次，重新整理不會灌數字。
+   本機預覽只讀取不增加。服務掛掉時整格自動隱藏。 */
+(async () => {
+  const API = 'https://abacus.jasoncameron.dev';
+  const KEY = 'someonetrack/site-visits';
+  const live = location.hostname === 'someonetrack.github.io';
+  let counted = false;
+  try { counted = sessionStorage.getItem('st-counted') === '1'; } catch (e) {}
+  const action = live && !counted ? 'hit' : 'get';
+  try {
+    const r = await fetch(`${API}/${action}/${KEY}`);
+    if (!r.ok) return;
+    const { value } = await r.json();
+    if (typeof value !== 'number') return;
+    if (action === 'hit') { try { sessionStorage.setItem('st-counted', '1'); } catch (e) {} }
+    document.querySelector('[data-views]').textContent = value.toLocaleString('zh-TW');
+    document.querySelector('.stats .views').hidden = false;
+  } catch (e) {}
+})();
 const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
